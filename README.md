@@ -36,43 +36,40 @@
     
     bash
     
-    Copy code
-    
-    `git clone https://github.com/your-username/netflix-watch-history-sync.git
-    cd netflix-watch-history-sync` 
+    ```
+    git clone https://github.com/IVRYSimon/netflix-watch-history-sync.git
+    cd netflix-watch-history-sync
+    ``` 
     
 2.  **Install Required Packages**: Install Python dependencies:
     
     bash
-    
-    Copy code
-    
-    `pip install -r requirements.txt` 
-    
+    ```
+    pip install -r requirements.txt
+    ```
 3.  **Install Chromium and ChromiumDriver**:
     
     bash
     
-    Copy code
-    
-    `sudo apt update
+    ```
+    sudo apt update
     sudo apt install -y chromium-browser chromium-chromedriver` 
+    ```
     
-4.  **Set Up MariaDB Database**:
+5.  **Set Up MariaDB Database**:
     
     sql
-    
-    Copy code
-    
-    `CREATE DATABASE netflix_viewed;
+    ```
+    CREATE DATABASE netflix_viewed;
     CREATE TABLE netflix_watchlist (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255),
         date_watched DATE,
         profile_name VARCHAR(100),
         UNIQUE(title, date_watched, profile_name)
-    );` 
-    
+    );
+    ```
+    With the UNIQUE function, we assure that entries are unique identified by title, date_watched and profile_name
 
 ## Configuration
 
@@ -82,32 +79,31 @@ Edit the script to update the Netflix credentials, profile names, and database c
     
     python
     
-    Copy code
-    
-    `NETFLIX_EMAIL = "your-email@example.com"
+    ```
+    NETFLIX_EMAIL = "your-email@example.com"
     NETFLIX_PASSWORD = "your-password"
     PROFILES = ["Profile1", "Profile2", "Profile3"]` 
+    ```
     
 -   **MariaDB Configuration**:
     
     python
-    
-    Copy code
-    
-    `conn = mariadb.connect(
+    ```
+    conn = mariadb.connect(
         user="your-db-user",
         password="your-db-password",
         host="localhost",
         database="netflix_viewed"
-    )` 
+    )
+    ```
     
 -   **Download Path**: Set the directory for temporary CSV files and archived files.
     
     python
     
-    Copy code
-    
-    `DOWNLOAD_PATH = "/path/to/download"` 
+    ```
+    DOWNLOAD_PATH = "/path/to/download"
+    ```
     
 
 ## Usage
@@ -116,28 +112,24 @@ Run the script manually to test the setup:
 
 bash
 
-Copy code
-
-`python3 import_netflix_viewed.py` 
+```
+python3 import_netflix_viewed.py
+```
 
 ## Setting up a Cron Job
 
 To automate daily data syncing, set up a cron job. Open the crontab editor:
 
 bash
-
-Copy code
-
-`crontab -e` 
-
+```
+crontab -e
+```
 Add a line for daily execution at 2:00 AM:
 
 cron
-
-Copy code
-
-`0 2 * * * /usr/bin/python3 /path/to/netflix-watch-history-sync/import_netflix_viewed.py >> /path/to/log/netflix_sync.log 2>&1` 
-
+```
+0 2 * * * /usr/bin/python3 /path/to/netflix-watch-history-sync/import_netflix_viewed.py >> /path/to/log/netflix_sync.log 2>&1` 
+```
 ## Troubleshooting
 
 ### Common Issues and Fixes
@@ -156,11 +148,11 @@ Copy code
         
         bash
         
-        Copy code
         
-        `chromium --version
+        ```
+        chromium --version
         chromedriver --version` 
-        
+        ```
 
 #### Issue: "DevToolsActivePort file doesn't exist"
 
@@ -170,10 +162,9 @@ Copy code
     -   Ensure `/tmp` directory has sufficient space:
         
         bash
-        
-        Copy code
-        
-        `df -h /tmp` 
+        ```
+        df -h /tmp
+        ``` 
         
 
 #### Issue: "No such file or directory: NetflixViewingHistory.csv"
